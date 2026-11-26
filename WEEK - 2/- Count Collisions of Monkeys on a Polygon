@@ -1,0 +1,23 @@
+class Solution {
+    private static final int MOD = 1_000_000_007;
+
+    public int monkeyMove(int n) {
+        long totalWays = powMod(2L, n, MOD);
+        return (int) ((totalWays - 2 + MOD) % MOD);
+    }
+
+    private long powMod(long base, long exp, int mod) {
+        long result = 1L;
+        base %= mod;
+
+        while (exp > 0) {
+            if ((exp & 1L) == 1L) {
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod;
+            exp >>= 1;
+        }
+
+        return result;
+    }
+}

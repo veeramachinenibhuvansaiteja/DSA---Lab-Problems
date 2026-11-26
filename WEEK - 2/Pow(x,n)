@@ -1,0 +1,22 @@
+class Solution {
+    public double myPow(double x, int n) {
+       long exp = n;
+        boolean isNegative = exp < 0;
+        if (isNegative) {
+            exp = -exp;
+        }
+
+        double result = 1.0;
+        double currentProduct = x;
+
+        while (exp > 0) {
+            if ((exp & 1L) == 1L) {
+                result *= currentProduct;
+            }
+            currentProduct *= currentProduct;
+            exp >>= 1;
+        }
+
+        return isNegative ? 1.0 / result : result;
+    }
+}

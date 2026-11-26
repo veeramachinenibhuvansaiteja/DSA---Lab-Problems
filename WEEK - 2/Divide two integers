@@ -1,0 +1,32 @@
+class Solution {
+    public int divide(int dividend, int divisor) {
+        if (dividend == Integer.MIN_VALUE && divisor == -1) {
+            return Integer.MAX_VALUE;
+        }
+
+        boolean isNegative = (dividend < 0) ^ (divisor < 0);
+
+        long dvd = Math.abs((long) dividend);
+        long dvs = Math.abs((long) divisor);
+        long quotient = 0;
+
+        while (dvd >= dvs) {
+            int shift = 0;
+            while ((dvs << (shift + 1)) <= dvd) {
+                shift++;
+            }
+            dvd -= (dvs << shift);
+            quotient += (1L << shift);
+        }
+
+        long signedQuotient = isNegative ? -quotient : quotient;
+        if (signedQuotient > Integer.MAX_VALUE) {
+            return Integer.MAX_VALUE;
+        }
+        if (signedQuotient < Integer.MIN_VALUE) {
+            return Integer.MIN_VALUE;
+        }
+
+        return (int) signedQuotient;
+    }
+}
